@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<title>Conquista d'Italia · la mappa</title>
+<meta name="description" content="Commenta la tua città: prendi casa sulla mappa 3D dell'Italia. Ogni sera alle 21 le città più grandi invadono le vicine.">
+<meta name="theme-color" content="#8EC9E8">
+<meta property="og:title" content="Conquista d'Italia">
+<meta property="og:description" content="Commenta la tua città e prendi casa sulla mappa. Alle 21 si combatte.">
+<meta property="og:image" content="logo.png">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+</head>
+<body>
+<div id="scene"></div>
+<div id="labels"></div>
+
+<header id="top">
+  <div class="brand"><img src="logo.png" alt=""><h1>CONQUISTA <span>D'ITALIA</span></h1></div>
+  <div class="countdown"><small>Battaglia alle 21</small><b id="cd">--:--:--</b></div>
+  <form id="search" autocomplete="off">
+    <input id="q" type="search" placeholder="Trova la tua casa: scrivi il tuo @ o la città" enterkeyhint="search">
+    <ul id="sugg"></ul>
+  </form>
+  <div class="ticker" id="ticker"><span class="live">LIVE</span><span id="tickText">…</span><small id="upd"></small></div>
+</header>
+
+<div id="bubble" hidden></div>
+<button id="btnStory" class="floating" hidden>📸 Metti la tua casa nella storia</button>
+<div id="toast" hidden></div>
+<div id="loading"><div class="spin"></div><p>Costruisco l'Italia…</p></div>
+
+<section id="sheet" class="peek">
+  <div class="handle" id="handle"><i></i></div>
+  <div class="actions">
+    <button id="btnAdd" class="primary">🏠 Prendi casa</button>
+    <button id="btnReplay">⚔️ Battaglia di ieri</button>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-t="citta" class="on">Città</button><button data-t="giocatori">Giocatori</button><button data-t="notizie">Notizie</button><button data-t="regole">Punti e regole</button><button data-t="negozio">Negozi</button>
+  </nav>
+  <div id="panel"></div>
+</section>
+
+<dialog id="dlgAdd">
+  <h2>Prendi casa</h2>
+  <ol>
+    <li>Apri l'ultimo video di <b>Conquista d'Italia</b></li>
+    <li>Commenta con la tua città, per esempio <code>Santeramo in Colle, Puglia</code></li>
+    <li>Tagga i tuoi amici: quando prendono casa anche loro guadagni punti</li>
+  </ol>
+  <p class="mute">La mappa si aggiorna da sola ogni 15 minuti. Il primo del tuo comune diventa il <b>Fondatore</b>.</p>
+  <div class="row"><a id="igLink" class="btn primary" target="_blank" rel="noopener">Apri il profilo</a><button class="btn" data-close>Chiudi</button></div>
+</dialog>
+
+<dialog id="dlgStory">
+  <h2>La tua storia</h2>
+  <img id="storyImg" alt="Immagine per la storia">
+  <p class="mute">Pubblicala nella storia e tagga <b>@conquistaditalia</b>: vale <b>+20 punti</b>.</p>
+  <div class="row"><button class="btn primary" id="storyShare">Condividi</button><a class="btn" id="storyDl" download="la-mia-casa.png">Scarica</a><button class="btn" data-close>Chiudi</button></div>
+</dialog>
+
+<form name="negozio" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input name="attivita"><input name="citta"><input name="contatto"><input name="bot-field">
+</form>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
