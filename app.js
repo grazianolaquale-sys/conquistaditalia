@@ -342,7 +342,7 @@ function renderPanel() {
       <tr><td>🏠 Un amico che hai taggato prende casa</td><td>+${p.amico_casa}</td></tr><tr><td>📸 Storia con la tua casa e il tag ${TAG}</td><td>+${p.storia}</td></tr></table>
       <p>⬆️ La casa cresce: ${L.map((l) => `${l.nome} (${l.da})`).join(" → ")} punti.</p>
       <p>👑 Il primo del comune è il <b>Fondatore</b>. Chi ha più punti è il <b>Re della città</b>.</p>
-      <p>⚔️ <b>Ogni sera alle 21 le città più grandi invadono le vicine</b>: ogni città prende il territorio confinante più debole di una città più piccola.</p>
+      <p>⚔️ <b>Ogni giorno alle 14 le città più grandi invadono le vicine</b>: ogni città prende il territorio confinante più debole di una città più piccola.</p>
       <p class="mute">Gioco per divertimento, nessun premio in denaro. Aggiornato alle ${hhmm(D.aggiornato)}.</p></div>`;
   } else {
     el.innerHTML = `<div class="rules"><p>🏪 <b>Il tuo negozio sulla mappa</b>: la tua attività compare come edificio speciale nella tua città.</p>
@@ -371,7 +371,7 @@ document.querySelectorAll("[data-close]").forEach((b) => b.addEventListener("cli
 // ------------------------------------------------------------------ conto alla rovescia, notizie in diretta
 function tick() {
   const it = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" }));
-  const tgt = new Date(it); tgt.setHours(21, 0, 0, 0); if (it >= tgt) tgt.setDate(tgt.getDate() + 1);
+  const tgt = new Date(it); tgt.setHours(14, 0, 0, 0); if (it >= tgt) tgt.setDate(tgt.getDate() + 1);
   let s = Math.floor((tgt - it) / 1000); const h = Math.floor(s / 3600); s -= h * 3600; const m = Math.floor(s / 60); s -= m * 60;
   $("#cd").textContent = [h, m, s].map((x) => String(x).padStart(2, "0")).join(":");
 }
@@ -444,7 +444,7 @@ function startReplay() {
   const bt = ((ALL.battaglie || {})[PLAT] || []).slice(-1)[0];
   const src = bt && bt.conquiste && bt.conquiste.length ? bt.conquiste.map((m) => ({ ...m, da: m.da || (D.conquiste.find((x) => x.territorio === m.territorio) || {}).da || m.territorio })) : (D.conquiste || []);
   const list = src.filter((m) => CITY[m.a] && CITY[m.territorio]).slice(0, 18);
-  if (!list.length) { toast("Nessuna battaglia ancora: <b>la prima è alle 21</b>"); return; }
+  if (!list.length) { toast("Nessuna battaglia ancora: <b>la prima è alle 14</b>"); return; }
   setSheet("peek"); hideBubble(); replayGroup.clear();
   list.forEach((m) => { const c = CITY[m.territorio]; setCityOwnerColor(c.i, CITY[m.da] ? CITY[m.da].i : c.i); });
   flyTo(20, 120, 2300, 1200);
